@@ -18,13 +18,17 @@ const getProductsById = async (id) => {
 };
 
 const createProduct = async (name) => {
-  // const { error } = productsSchema.validate({ name });
-  // if (error) {
-  //   const objError = { status: 400, message: error.message };
-  //   throw objError;
-  // }
+  if (!name) return { type: 400, message: '"name" is required' };
+  if (name.length < 5) {
+    return { type: 422, message: '"name" length must be at least 5 characters long' }; 
+  } 
+
   const id = await productsModel.createProduct(name);
-  return { id, name };
+  const newProduct = {
+    id,
+    name,
+  }; 
+  return { newProduct };
 };
 
 module.exports = {
