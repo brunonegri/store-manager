@@ -22,13 +22,8 @@ const createProduct = async (name) => {
   if (name.length < 5) {
     return { type: 422, message: '"name" length must be at least 5 characters long' }; 
   } 
-
   const id = await productsModel.createProduct(name);
-  const newProduct = {
-    id,
-    name,
-  }; 
-  return { newProduct };
+  return { type: 201, message: id };
 };
 
 module.exports = {

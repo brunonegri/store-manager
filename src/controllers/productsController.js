@@ -14,11 +14,11 @@ const getProductsById = async (req, res) => {
 
 const createProduct = async (req, res) => {
   const { name } = req.body; 
-  const { newProduct, type, message } = await productServices.createProduct(name);
-  if (message) {
+  const { type, message } = await productServices.createProduct(name);
+  if (type !== 201) {
     return res.status(type).json({ message });
   }
-    res.status(201).json(newProduct);
+  res.status(201).json({ id: message, name });
 };
 
 module.exports = {
